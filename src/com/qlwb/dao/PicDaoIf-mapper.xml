@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+	<mapper namespace="com.qlwb.dao.PicDaoIf">
+		<insert id="addPic" parameterType="map">
+			insert into pic values(#{id,jdbcType=VARCHAR},#{pic,jdbcType=BLOB},#{name,jdbcType=VARCHAR})
+		</insert>
+		<select id="getPicById" parameterType="string" resultType="hashmap">
+			select id,name,pic from pic where id=#{id}
+		</select>
+		<select id="getPicList"  resultType="hashmap">
+			select id,name from pic 
+		</select>
+	</mapper>

@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+		<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="ds">
+			<property name="mapperLocations">
+				<list>
+					<value>classpath:com/qlwb/dao/*-mapper.xml</value>
+				</list>
+			</property>
+		</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> 
+	<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost:3306/chuangke?useUnicode=true&amp;characterEncoding=UTF-8"
+		p:username="root"
+		p:password="root"></bean>
+	<bean id="chuangkeDao" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf"
+		p:mapperInterface="com.qlwb.dao.ChuangkeDaoIf"></bean>
+	<bean id="picDao" class="org.mybatis.spring.mapper.MapperFactoryBean"
+		p:sqlSessionFactory-ref="ssf"
+		p:mapperInterface="com.qlwb.dao.PicDaoIf"></bean>
+	<context:component-scan base-package="com"></context:component-scan>
+	<mvc:annotation-driven></mvc:annotation-driven>
+</beans>
